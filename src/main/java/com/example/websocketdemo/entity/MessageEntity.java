@@ -36,7 +36,7 @@ public class MessageEntity {
 	
 	// 얼굴 사진 profile 필드, 생략
 	// 친구 기능 List<User> 생략
-	
+	 
 	@ManyToOne
 	@JoinColumn(name="fk_chatroom")
 	private ChatroomEntity chatroom;
