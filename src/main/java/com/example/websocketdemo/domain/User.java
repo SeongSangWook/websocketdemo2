@@ -1,13 +1,19 @@
 package com.example.websocketdemo.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.websocketdemo.entity.MessageEntity;
+
 public class User {
 	private long id; // primary key
 	private String userId; // unique key
 	private String userPw;	
 	private String name;
+	private List<Message> messages = new ArrayList<Message>();
 	
 	public User()  {}
-	public User(String userId, String userPw, String name, String company) {
+	public User(String userId, String userPw, String name) {
 		super();
 		this.userId = userId;
 		this.userPw = userPw;
@@ -37,6 +43,12 @@ public class User {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public List<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
 	}
 	
 	@Override
