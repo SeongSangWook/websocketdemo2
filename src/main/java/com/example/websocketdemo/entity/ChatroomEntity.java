@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -32,7 +33,8 @@ public class ChatroomEntity {
 	@OneToMany(mappedBy="chatroom")
 	private List<MessageEntity> messages = new ArrayList<MessageEntity>();
 	
-	
+	@ManyToMany(mappedBy="chatrooms")
+	private List<UserEntity> users = new ArrayList<UserEntity>();
 	
 	
 	
@@ -63,7 +65,13 @@ public class ChatroomEntity {
 	public void setMessages(List<MessageEntity> messages) {
 		this.messages = messages;
 	}
-	
+
+	public List<UserEntity> getUsers() {
+		return users;
+	}
+	public void setUsers(List<UserEntity> users) {
+		this.users = users;
+	}
 	public Chatroom buildDomain() {
 		Chatroom chatroom = new Chatroom();
 		chatroom.setId(id);
@@ -75,6 +83,10 @@ public class ChatroomEntity {
 		
 		for(int i=0;i<messages.size();i++) { //List 인터페이스의 size() 메서드는 List 내부의 요소들 갯수를 의미
 			chatroom.getMessages().add(messages.get(i).buildDomain());
+		}
+		
+		for(int i=0;i<users.size();i++) { //List 인터페이스의 size() 메서드는 List 내부의 요소들 갯수를 의미
+			chatroom.getUsers().add(users.get(i).buildDomain());
 		}
 		return chatroom;
 	}	
@@ -90,5 +102,11 @@ public class ChatroomEntity {
 			// List 인터페이스의 add메서드는 List에 요소를 추가
 			// get메서드는 List의 i번쩨 요소를 가져옴
 		}
+		UserEntity userEntity = new UserEntity();
+		for(int i=0;i<chatroom.getUsers().size();i++) {
+			userEntity.buildEntity(chatroom.getUsers().get(i));
+			messages.add(messageEntity);
+		}
+		
 	}
 }

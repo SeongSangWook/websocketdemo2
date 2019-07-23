@@ -3,6 +3,7 @@ package com.example.websocketdemo.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.websocketdemo.entity.ChatroomEntity;
 import com.example.websocketdemo.entity.MessageEntity;
 
 public class User {
@@ -11,6 +12,7 @@ public class User {
 	private String userPw;	
 	private String name;
 	private List<Message> messages = new ArrayList<Message>();
+	private List<Chatroom> chatrooms = new ArrayList<Chatroom>();
 	
 	public User()  {}
 	public User(String userId, String userPw, String name) {
@@ -49,6 +51,12 @@ public class User {
 	}
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
+	}
+	public List<Chatroom> getChatrooms() {
+		return chatrooms;
+	}
+	public void setChatrooms(List<Chatroom> chatrooms) {
+		this.chatrooms = chatrooms;
 	}
 	
 	@Override

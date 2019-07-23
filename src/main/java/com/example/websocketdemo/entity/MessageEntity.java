@@ -41,6 +41,7 @@ public class MessageEntity {
 	@JoinColumn(name="fk_chatroom")
 	private ChatroomEntity chatroom;
 	
+	
 	private LocalDateTime chatTime;
 	
 	public Long getId() {
