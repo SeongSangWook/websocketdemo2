@@ -32,8 +32,12 @@ var colors = [
 
 function connect(event) {
 	// 웹소켓으로 서버 접속
-    username = document.querySelector('#name').value.trim();
-
+   id = document.querySelector('#userid').value.trim();
+   pw = document.querySelector('#userpw').value.trim();
+   username = document.querySelector('#id').value.trim();
+   login = false;
+   
+   
     if(username) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
