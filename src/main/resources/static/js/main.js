@@ -1,10 +1,14 @@
 'use strict';
 // strict 모드 사용. 자바스크립트가 묵인했던 에러들의 에러 메시지 발생(엄격한 문법 검사)
 
+// var contents = document.querySelector('#contents');
+
 var usernamePage = document.querySelector('#username-page');
 var chatPage = document.querySelector('#chat-page');
+var registerPage = document.querySelector('#register-page');
 var usernameForm = document.querySelector('#usernameForm');
 var messageForm = document.querySelector('#messageForm');
+var registerForm = document.querySelector('#registerForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
@@ -32,12 +36,10 @@ var colors = [
 
 function connect(event) {
 	// 웹소켓으로 서버 접속
-   id = document.querySelector('#userid').value.trim();
-   pw = document.querySelector('#userpw').value.trim();
-   username = document.querySelector('#id').value.trim();
-   login = false;
-   
-   
+    // id = document.querySelector('#userid').value.trim();
+    // pw = document.querySelector('#userpw').value.trim();
+    username = document.querySelector('#username').value.trim();
+    
     if(username) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
@@ -90,6 +92,7 @@ function sendMessage(event) {
 
 
 function onMessageReceived(payload) {
+	// 받은 메시지를 해석해서 메시지 창에 나오는 HTML 소스 추가
     var message = JSON.parse(payload.body);
 
     var messageElement = document.createElement('li');
@@ -107,6 +110,7 @@ function onMessageReceived(payload) {
         var avatarText = document.createTextNode(message.sender[0]);
         avatarElement.appendChild(avatarText);
         avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        // 아이콘 만들기
 
         messageElement.appendChild(avatarElement);
 
@@ -114,16 +118,19 @@ function onMessageReceived(payload) {
         var usernameText = document.createTextNode(message.sender);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
+        // username 띄우기
     }
 
     var textElement = document.createElement('p');
     var messageText = document.createTextNode(message.content);
     textElement.appendChild(messageText);
+    // 메시지 내용 띄우기
 
     messageElement.appendChild(textElement);
 
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
+    // 추가하고, 스크롤 제일 밑으로 내리기
 }
 
 
@@ -134,7 +141,31 @@ function getAvatarColor(messageSender) {
     }
     var index = Math.abs(hash % colors.length);
     return colors[index];
+    // 아바타 색 랜덤 지정
+}
+function goToRegister() {
+    usernamePage.classList.add("hidden");
+    registerPage.classList.remove('hidden');
+    
 }
 
-usernameForm.addEventListener('submit', connect, true)
-messageForm.addEventListener('submit', sendMessage, true)
+function register() {
+	var id = document.getElementById("user");
+}
+
+$(document).ready(function(){
+	$("#usernameForm button").click(function (event) {
+		event.preventDefault();
+		if ($(this).attr("value") == "button1") {             
+			connect();
+		}
+		else if ($(this).attr("value") == "button2") {
+			goToRegister();
+		}
+	});
+});
+
+// usernameForm.addEventListener('submit', connect, true);
+messageForm.addEventListener('submit', sendMessage, true);
+registerForm.addEventListener('submit', register, true);
+// 버튼 EventListener 설정

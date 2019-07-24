@@ -3,59 +3,90 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Spring Boot WebSocket Chat Application</title>
-    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/main.css" />	
+	<!-- 
+	<script type="text/javascript">
+	//페이지가 로드되면 실행한다.
+	$(document).ready( function() {
+		$("#contents").load("username.html");
+	});
+	</script>
+	-->
 </head>
 <body>
 <noscript>
     <h2>Sorry! Your browser doesn't support Javascript</h2>
 </noscript>
 
+<!-- 
+<div id="contents">
+</div>
+-->
+
 <div id="username-page">
-    <div class="username-page-container">
-        <h1 class="title">Type your username</h1>
-        <form id="usernameForm" name="usernameForm">
-         <div class="form-group">
-              <input type="text" id="username" placeholder="Username" autocomplete="off" class="form-control" />
-            </div>
-            <div class="form-group" style="display:none">
-               id: <input type="text" id="userid" placeholder="Username" autocomplete="off" class="form-control" />
-               password: <input type="text" id="userpw" placeholder="Username" autocomplete="off" class="form-control" />
-            </div>
-            <div class="form-group">
-                <button type="submit" class="accent username-submit">Start Chatting</button>
-            </div>
-            <!-- 회원가입 -->
-            <div class="form-group" style="display:none">
-               <a href="register"><button type="submit" class="accent username-submit">register</button></a>
-            </div>
-        </form>
-    </div>
+	<div class="username-page-container">
+	    <h1 class="title">Welcome</h1>
+	    <form id="usernameForm" name="usernameForm">
+	    	<!-- 
+	    	<div class="form-group">
+	            <input type="text" id="username" placeholder="Username" autocomplete="off" class="form-control" />
+	        </div>
+	        -->
+	        <div class="form-group">
+	            <input type="text" id="username" placeholder="ID" autocomplete="off" class="form-control" />
+	            <input type="text" id="userpw" placeholder="Password" autocomplete="off" class="form-control" />
+	        </div>
+	        <div class="form-group">
+	            <button type="submit" value="button1" class="accent username-submit">Login</button>
+	            <button type="submit" value="button2" class="accent username-submit">Go To Register</button>
+	        </div>
+	    </form>
+	</div>
+</div>
+
+<div id="register-page" class="hidden">
+	<div class="username-page-container">
+	    <h1 class="title">Register</h1>
+	    <form id="usernameForm" name="usernameForm">
+	        <div class="form-group">
+	            <input type="text" id="userid" placeholder="ID" autocomplete="off" class="form-control" />
+	            <input type="text" id="userpw" placeholder="Password" autocomplete="off" class="form-control" />
+	            <input type="text" id="name" placeholder="Nickname" autocomplete="off" class="form-control" />
+	            
+	        </div>
+	        <div class="form-group">
+	            <button class="accent username-submit">Register</button>
+	        </div>
+	    </form>
+	</div>
 </div>
 
 <div id="chat-page" class="hidden">
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>Spring WebSocket Chat Demo</h2>
-        </div>
-        <div class="connecting">
-            Connecting...
-        </div>
-        <ul id="messageArea">
-
-        </ul>
-        <form id="messageForm" name="messageForm" nameForm="messageForm">
-            <div class="form-group">
-                <div class="input-group clearfix">
-                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                    <button type="submit" class="primary">Send</button>
-                </div>
-            </div>
-        </form>
-    </div>
+	<div class="chat-container">
+	    <div class="chat-header">
+	        <h2>Spring WebSocket Chat Demo</h2>
+	    </div>
+	    <div class="connecting">
+	        Connecting...
+	    </div>
+	    <ul id="messageArea">
+	
+	    </ul>
+	    <form id="messageForm" name="messageForm" nameForm="messageForm">
+	        <div class="form-group">
+	            <div class="input-group clearfix">
+	                <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
+	                <button type="submit" class="primary">Send</button>
+	            </div>
+	        </div>
+	    </form>
+	</div>
 </div>
+    
 
+</body>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/js/main.js"></script>
 <script src="/js/sockjs.min.js"></script>
 <script src="/js/stomp.min.js"></script>
-<script src="/js/main.js"></script>
-</body>
 </html>
