@@ -19,7 +19,7 @@ import com.example.websocketdemo.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
 	@Autowired UserRepository repository;
-
+	/*
 	@Override
 	public User getUserById(long id) {
 		UserEntity userEntity = null;
@@ -31,15 +31,7 @@ public class UserServiceImpl implements UserService {
 		}
 		return userEntity.buildDomain();
 	}
-
-	@Override
-	public User getUserByUserId(String userId) {
-		UserEntity userEntity = repository.findByUserId(userId);
-		if(userEntity == null)
-			return null;
-		return userEntity.buildDomain();
-	}
-
+	
 	public List<User> getUsers(PageRequest pageRequest) {
 		List<User> users = new ArrayList<User>();
 		Page<UserEntity> entities = repository.findAll(pageRequest);
@@ -69,13 +61,23 @@ public class UserServiceImpl implements UserService {
 		}
 		return users;
 	}
-
+	*/
+	@Override
+	public User getUserByUserId(String userId) {
+		UserEntity userEntity = repository.findByUserId(userId);
+		if(userEntity == null)
+			return null;
+		else
+			return userEntity.buildDomain();
+	}
+	
 	@Override
 	public void saveUser(User user) {
 		// TODO Auto-generated method stub
 		UserEntity entity = new UserEntity();
 		entity.buildEntity(user);
-		repository.save(entity);
+		if(repository.findByUserId(user.getUserId())==null)
+			repository.save(entity);
 	}
 	@Override
 	public void updateUser(User user) {

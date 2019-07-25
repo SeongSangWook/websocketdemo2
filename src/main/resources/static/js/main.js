@@ -14,8 +14,13 @@ var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 // document객체의 메서드를 통해 객체 찾기
 
+var socket = new SockJS('/ws');
+// server 소켓의 endpoint인 /ws로 접속할 클라이언트  소켓 생성.
 var stompClient = null;
-var username = null;
+stompClient = Stomp.over(socket);
+
+var sessionUser = null;
+var name = null;
 // WebSocket은 웹 상에서 쉽게 소켓통신을 하게 해주는 라이브러리
 // 스프링에서는 SockJS 라이브러리와 STOMP 프로토콜을 사용 가능
 // SockJS는 WebSocket 기능 보완, 향상
@@ -36,22 +41,35 @@ var colors = [
 
 function connect(event) {
 	// 웹소켓으로 서버 접속
-    // id = document.querySelector('#userid').value.trim();
-    // pw = document.querySelector('#userpw').value.trim();
-    username = document.querySelector('#username').value.trim();
+    var id = document.querySelector('#userid').value.trim();
+    var pw = document.querySelector('#userpw').value.trim();
     
+    /*
     if(username) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
-
-        var socket = new SockJS('/ws');
+        stompClient.connect({}, onConnected, onError);
+        socket = new SockJS('/ws');
+        // /ws/{방번호}
         // server 소켓의 endpoint인 /ws로 접속할 클라이언트  소켓 생성.
         stompClient = Stomp.over(socket);
         // stomp에 소켓 적용
-
-        stompClient.connect({}, onConnected, onError);
+ 		
+        
     }
-    event.preventDefault();
+    */
+    var user = {
+    		userId: id, 
+    		userPw: pw	
+    };
+    stompClient.send("/app/loginUser",
+        {},
+        JSON.stringify(user)
+    )
+    sessionUser = sessionStorage.getItem(user);
+    if(sessionUser)
+    	name = sessionUser.name;
+    
     // 현재 이벤트의 기본 동작을 중단한다.
 }
 
@@ -59,11 +77,10 @@ function connect(event) {
 function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
-
     // Tell your username to the server
     stompClient.send("/app/chat.addUser",
         {},
-        JSON.stringify({sender: username, type: 'JOIN'})
+        JSON.stringify({sender: name, type: 'JOIN'})
     )
 
     connectingElement.classList.add('hidden');
@@ -148,9 +165,30 @@ function goToRegister() {
     registerPage.classList.remove('hidden');
     
 }
-
 function register() {
-	var id = document.getElementById("user");
+	var registerForm=document.getElementById("registerForm"); //폼 name
+	
+	var registerid = document.querySelector('#registeruserid').value.trim();
+    var registerpw = document.querySelector('#registeruserpw').value.trim();
+    var registername = document.querySelector('#registername').value.trim();
+    
+    var user = {
+        userId: registerid,
+        userPw: registerpw,
+        name: registername
+    };
+
+    // Tell your username to the server
+    stompClient.send("/app/registerUser",
+        {},
+        JSON.stringify(user)
+    )
+    
+    connectingElement.classList.add('hidden');
+    // registerForm.formUser = user; 
+    // registerForm.action="";//이동할 페이지
+    // registerForm.method="post";//POST방식
+    // registerForm.submit();
 }
 
 $(document).ready(function(){
@@ -163,6 +201,12 @@ $(document).ready(function(){
 			goToRegister();
 		}
 	});
+	
+	if(sessionUser!=null){
+		usernamePage.classList.add('hidden');
+        chatPage.classList.remove('hidden');
+        stompClient.connect({}, onConnected, onError);
+	}
 });
 
 // usernameForm.addEventListener('submit', connect, true);

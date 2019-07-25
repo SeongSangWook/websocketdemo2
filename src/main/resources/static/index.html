@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
     <title>Spring Boot WebSocket Chat Application</title>
     <link rel="stylesheet" href="/css/main.css" />	
 	<!-- 
@@ -33,7 +33,7 @@
 	        </div>
 	        -->
 	        <div class="form-group">
-	            <input type="text" id="username" placeholder="ID" autocomplete="off" class="form-control" />
+	            <input type="text" id="userid" placeholder="ID" autocomplete="off" class="form-control" />
 	            <input type="text" id="userpw" placeholder="Password" autocomplete="off" class="form-control" />
 	        </div>
 	        <div class="form-group">
@@ -47,12 +47,11 @@
 <div id="register-page" class="hidden">
 	<div class="username-page-container">
 	    <h1 class="title">Register</h1>
-	    <form id="usernameForm" name="usernameForm">
+	    <form id="registerForm" name="registerForm">
 	        <div class="form-group">
-	            <input type="text" id="userid" placeholder="ID" autocomplete="off" class="form-control" />
-	            <input type="text" id="userpw" placeholder="Password" autocomplete="off" class="form-control" />
-	            <input type="text" id="name" placeholder="Nickname" autocomplete="off" class="form-control" />
-	            
+	            <input type="text" id="registeruserid" placeholder="ID" autocomplete="off" class="form-control" />
+	            <input type="text" id="registeruserpw" placeholder="Password" autocomplete="off" class="form-control" />
+	            <input type="text" id="registername" placeholder="Nickname" autocomplete="off" class="form-control" />
 	        </div>
 	        <div class="form-group">
 	            <button class="accent username-submit">Register</button>
@@ -86,7 +85,7 @@
 
 </body>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="/js/main.js"></script>
 <script src="/js/sockjs.min.js"></script>
 <script src="/js/stomp.min.js"></script>
+<script src="/js/main.js"></script>
 </html>

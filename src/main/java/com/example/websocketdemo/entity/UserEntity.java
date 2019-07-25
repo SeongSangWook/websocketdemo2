@@ -104,6 +104,7 @@ public class UserEntity {
 		return user;
 	}
 	public void buildEntity(User user) {
+		if(user.getId() != 0)
 		id = user.getId();
 		userId = user.getUserId();
 		userPw = user.getUserPw();
